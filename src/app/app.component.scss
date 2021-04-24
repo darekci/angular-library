@@ -1,0 +1,14 @@
+.app {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+
+  &__menu {
+    width: 20%;
+  }
+
+  &__main {
+    margin-left: 2%;
+    width: 90%;
+  }
+}

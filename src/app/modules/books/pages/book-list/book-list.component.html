@@ -1,0 +1,22 @@
+<div class="book-list">
+  <p-table [value]="books" styleClass="p-datatable-striped">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Author</th>
+        <th>Title</th>
+        <th>ISBN</th>
+        <th>Publish Year</th>
+        <th>Publisher</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-book>
+      <tr>
+        <td>{{ book.author }}</td>
+        <td>{{ book.title }}</td>
+        <td>{{ book.isbn }}</td>
+        <td>{{ book.publishYear }}</td>
+        <td>{{ book.publisher }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

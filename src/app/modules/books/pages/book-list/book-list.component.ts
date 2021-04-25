@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 import { BookDto } from '../../models/book.dto';
 import { BooksService } from '../../services/books.service';
@@ -14,7 +15,11 @@ export class BookListComponent implements OnInit {
 
   books: BookDto[];
 
-  constructor(private service: BooksService) {}
+  constructor(
+    private service: BooksService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
     this.loadBooks();
@@ -26,6 +31,31 @@ export class BookListComponent implements OnInit {
         this.books = books;
       })
     );
+  }
+
+  openNew(): void {
+    console.log('new');
+  }
+
+  editBook(book: BookDto) {
+    console.log(book);
+  }
+
+  deleteBook(book: BookDto) {
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete ' + book.title + '?',
+      header: 'Confirm',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        // deleted
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Successful',
+          detail: 'Book Deleted',
+          life: 3000,
+        });
+      },
+    });
   }
 
   ngOnDestroy(): void {

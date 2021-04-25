@@ -3,6 +3,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { BooksModule } from './modules/books/books.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
+import { CoreModule } from './core/core.module';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { PrimeNgModule } from './shared/modules/prime-ng/prime-ng.module';
@@ -15,6 +16,7 @@ import { PrimeNgModule } from './shared/modules/prime-ng/prime-ng.module';
     AppRoutingModule,
     HttpClientModule,
     PrimeNgModule,
+    CoreModule,
     BooksModule,
   ],
   providers: [],

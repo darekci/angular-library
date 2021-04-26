@@ -23,6 +23,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { RatingModule } from 'primeng/rating';
 import { RippleModule } from 'primeng/ripple';
 import { SliderModule } from 'primeng/slider';
+import { TabViewModule } from 'primeng/tabview';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
@@ -51,6 +52,7 @@ import { ToolbarModule } from 'primeng/toolbar';
     InputTextModule,
     FileUploadModule,
     RatingModule,
+    TabViewModule,
   ],
   providers: [FilterService, ConfirmationService, MessageService],
 })

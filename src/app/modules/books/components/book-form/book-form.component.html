@@ -1,0 +1,81 @@
+<div class="book-form" *ngIf="formGroup" [formGroup]="formGroup">
+  <app-form-toolbar
+    [title]="title"
+    [saveEnabled]="formGroup.valid"
+    (cancelClicked)="onCancel()"
+    (saveClicked)="onSubmit()"
+  ></app-form-toolbar>
+  <div class="card">
+    <div class="p-fluid p-formgrid p-grid">
+      <div class="p-field p-col">
+        <label>Author</label>
+        <input type="text" formControlName="author" pInputText />
+        <div
+          *ngIf="
+            formGroup.controls['author'].invalid &&
+            formGroup.controls['author'].errors &&
+            formGroup.controls['author'].touched
+          "
+        >
+          <small class="text-danger"> Author is invalid. </small>
+        </div>
+      </div>
+      <div class="p-field p-col">
+        <label>Title</label>
+        <input type="text" formControlName="title" pInputText />
+        <div
+          *ngIf="
+            formGroup.controls['title'].invalid &&
+            formGroup.controls['title'].errors &&
+            formGroup.controls['title'].touched
+          "
+        >
+          <small class="text-danger"> Title is invalid. </small>
+        </div>
+      </div>
+    </div>
+    <div class="p-fluid">
+      <div class="p-field">
+        <label>ISBN</label>
+        <input type="text" formControlName="isbn" pInputText />
+        <div
+          *ngIf="
+            formGroup.controls['isbn'].invalid &&
+            formGroup.controls['isbn'].errors &&
+            formGroup.controls['isbn'].touched
+          "
+        >
+          <small class="text-danger"> ISBN is invalid. </small>
+        </div>
+      </div>
+    </div>
+    <div class="p-fluid p-formgrid p-grid">
+      <div class="p-field p-col">
+        <label>Publish Year</label>
+        <input type="text" formControlName="publishYear" pInputText />
+        <div
+          *ngIf="
+            formGroup.controls['publishYear'].invalid &&
+            formGroup.controls['publishYear'].errors &&
+            formGroup.controls['publishYear'].touched
+          "
+        >
+          <small class="text-danger"> Publish Year is invalid. </small>
+        </div>
+      </div>
+      <div class="p-field p-col">
+        <label>Publisher</label>
+        <input type="text" formControlName="publisher" pInputText />
+        <div
+          *ngIf="
+            formGroup.controls['publisher'].invalid &&
+            formGroup.controls['publisher'].errors &&
+            formGroup.controls['publisher'].touched
+          "
+        >
+          <small class="text-danger">Publisher is invalid. </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

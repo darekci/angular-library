@@ -41,6 +41,12 @@ export class MenuComponent implements OnInit {
             routerLink: ['/books'],
             routerLinkActiveOptions: { exact: true },
           },
+          {
+            label: 'Add',
+            icon: 'pi pi-plus',
+            routerLink: ['/books/add'],
+            routerLinkActiveOptions: { exact: true },
+          },
         ],
       },
       {

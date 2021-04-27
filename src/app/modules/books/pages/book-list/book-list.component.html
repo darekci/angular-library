@@ -14,6 +14,7 @@
       'publishYear'
     ]"
     dataKey="id"
+    editMode="row"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
     [showCurrentPageReport]="true"
   >
@@ -40,27 +41,98 @@
         <th>Actions</th>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-book>
-      <tr>
-        <td>{{ book.author }}</td>
-        <td>{{ book.title }}</td>
-        <td>{{ book.isbn }}</td>
-        <td>{{ book.publishYear }}</td>
-        <td>{{ book.publisher }}</td>
+    <ng-template
+      pTemplate="body"
+      let-book
+      let-editing="editing"
+      let-ri="rowIndex"
+    >
+      <tr [pEditableRow]="book">
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="book.author" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ book.author }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="book.title" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ book.title }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="book.isbn" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ book.isbn }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="book.publishYear" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ book.publishYear }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="book.publisher" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ book.publisher }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
         <td>
           <button
+            *ngIf="!editing"
             pButton
             pRipple
+            pInitEditableRow
             icon="pi pi-pencil"
             class="p-button-rounded p-button-success p-mr-2"
-            (click)="editBook(book)"
+            (click)="onRowEditInit(book)"
           ></button>
           <button
+            *ngIf="!editing"
             pButton
             pRipple
             icon="pi pi-trash"
             class="p-button-rounded p-button-warning"
             (click)="deleteBook(book)"
+          ></button>
+          <button
+            *ngIf="editing"
+            pButton
+            pRipple
+            pCancelEditableRow
+            icon="pi pi-check"
+            (click)="onRowEditSave(book)"
+            class="p-button-rounded p-button-success p-mr-2"
+          ></button>
+          <button
+            *ngIf="editing"
+            pButton
+            pRipple
+            pCancelEditableRow
+            icon="pi pi-times"
+            (click)="onRowEditCancel(book, ri)"
+            class="p-button-rounded p-button-danger"
           ></button>
         </td>
       </tr>

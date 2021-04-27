@@ -17,6 +17,7 @@ import { SharedModule } from 'primeng/api';
     LibrarySharedModule,
     BooksRoutingModule,
     ReactiveFormsModule,
+    FormsModule,
   ],
 })
 export class BooksModule {}

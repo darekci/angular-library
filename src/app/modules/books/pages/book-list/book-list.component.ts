@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
 
 import { BookDto } from '../../models/book.dto';
 import { BooksService } from '../../services/books.service';
+import { ConfirmationService } from 'primeng/api';
 import { Subscription } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-book-list',
@@ -15,10 +16,12 @@ export class BookListComponent implements OnInit {
 
   books: BookDto[];
 
+  clonedBooks: { [s: number]: BookDto } = {};
+
   constructor(
     private service: BooksService,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -33,29 +36,37 @@ export class BookListComponent implements OnInit {
     );
   }
 
-  openNew(): void {
-    console.log('new');
-  }
-
-  editBook(book: BookDto) {
-    console.log(book);
-  }
-
   deleteBook(book: BookDto) {
-    this.confirmationService.confirm({
-      message: 'Are you sure you want to delete ' + book.title + '?',
-      header: 'Confirm',
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-        // deleted
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Successful',
-          detail: 'Book Deleted',
-          life: 3000,
-        });
+    this.service.deleteBook(book.id).subscribe(
+      () => {
+        this.toastr.success('Book deleted');
+        this.loadBooks();
       },
-    });
+      () => this.toastr.error('Error while deleting Book')
+    );
+  }
+
+  onRowEditInit(book: BookDto): void {
+    this.clonedBooks[book.id] = { ...book };
+  }
+
+  onRowEditSave(book: BookDto): void {
+    delete this.clonedBooks[book.id];
+
+    const editedBook = { ...book, publishYear: +book.publishYear };
+
+    this.service.editBook(editedBook).subscribe(
+      () => {
+        this.toastr.success(`Book ${book.title} updated`);
+        this.loadBooks();
+      },
+      () => this.toastr.error('Error while updating book')
+    );
+  }
+
+  onRowEditCancel(book: BookDto, index: number): void {
+    this.books[index] = this.clonedBooks[book.id];
+    delete this.clonedBooks[book.id];
   }
 
   ngOnDestroy(): void {

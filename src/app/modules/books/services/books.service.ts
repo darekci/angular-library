@@ -17,4 +17,12 @@ export class BooksService {
   addBook(book: BookDto): Observable<void> {
     return this.httpClient.post<void>(`${environment.apiUrl}books`, book);
   }
+
+  editBook(book: BookDto): Observable<void> {
+    return this.httpClient.put<void>(`${environment.apiUrl}books`, book);
+  }
+
+  deleteBook(id: number): Observable<void> {
+    return this.httpClient.delete<void>(`${environment.apiUrl}books/${id}`);
+  }
 }

@@ -1,5 +1,4 @@
 export class BookDto {
-  private bookDto: void;
   id: number;
   author: string;
   title: string;

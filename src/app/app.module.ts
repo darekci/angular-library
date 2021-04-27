@@ -25,7 +25,6 @@ import { ToastrModule } from 'ngx-toastr';
     CoreModule,
     BooksModule,
   ],
-  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,0 +1,101 @@
+<div class="data-table">
+  <p-table
+    #dt
+    [value]="tableConfig.data"
+    styleClass="p-datatable-striped"
+    [rowHover]="true"
+    [rows]="tableConfig.rows"
+    [paginator]="true"
+    [globalFilterFields]="tableConfig.globalFilterFields"
+    dataKey="id"
+    editMode="row"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true"
+  >
+    <ng-template pTemplate="caption">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input
+            pInputText
+            type="text"
+            (input)="dt.filterGlobal($event.target.value, 'contains')"
+            placeholder="Search..."
+          />
+        </span>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th *ngFor="let column of tableConfig.dataTableType.columns">
+          {{ column.title }}
+        </th>
+      </tr>
+    </ng-template>
+
+    <ng-template
+      pTemplate="body"
+      let-datarow
+      let-editing="editing"
+      let-ri="rowIndex"
+    >
+      <tr [pEditableRow]="datarow">
+        <td *ngFor="let column of tableConfig.dataTableType.columns">
+          <p-cellEditor *ngIf="column.dataType == 'data'; else action_content">
+            <ng-template pTemplate="input">
+              <input
+                pInputText
+                type="text"
+                [(ngModel)]="datarow[column.dataProperty]"
+              />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ datarow[column.dataProperty] }}
+            </ng-template>
+          </p-cellEditor>
+
+          <ng-template #action_content>
+            <span *ngFor="let action of tableConfig.dataTableType.rowActions">
+              <button
+                *ngIf="action.actionType === 'edit' && !editing"
+                pButton
+                pRipple
+                pInitEditableRow
+                icon="pi pi-pencil"
+                class="p-button-rounded p-button-success p-mr-2"
+                (click)="onRowEditInit(datarow)"
+              ></button>
+              <button
+                *ngIf="action.actionType === 'edit' && editing"
+                pButton
+                pRipple
+                pCancelEditableRow
+                icon="pi pi-check"
+                class="p-button-rounded p-button-success p-mr-2"
+                (click)="onRowEditSave(datarow)"
+              ></button>
+              <button
+                *ngIf="action.actionType === 'edit' && editing"
+                pButton
+                pRipple
+                pCancelEditableRow
+                icon="pi pi-times"
+                class="p-button-rounded p-button-danger"
+                (click)="onRowEditCancel(datarow, ri)"
+              ></button>
+              <button
+                *ngIf="action.actionType === 'delete' && !editing"
+                pButton
+                pRipple
+                icon="pi pi-trash"
+                class="p-button-rounded p-button-warning"
+                (click)="onDeleteRow(datarow)"
+              ></button>
+            </span>
+          </ng-template>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
